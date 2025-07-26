@@ -9,8 +9,39 @@ This is the backend API for the JayaKoding project, providing functionalities fo
 - [API Endpoints](#api-endpoints)
   - [Authentication](#authentication)
   - [Articles & Projects](#articles--projects)
+  - [Feedback](#feedback)
 
 ## Installation
+- **Endpoint:** `POST /feedback`
+- **Description:** Sends an email with the user's feedback to the contact email specified in the server's environment variables.
+- **Access:** Public
+- **Request Body:** `application/json`
+  ```json
+  {
+    "name": "John Doe",
+    "email": "john.doe@example.com",
+    "message": "This is my feedback."
+  }
+  ```
+- **Success Response (200 OK):**
+  ```json
+  {
+    "message": "Feedback sent successfully"
+  }
+  ```
+- **Error Response (400 Bad Request):**
+  ```json
+  {
+    "message": "All fields are required"
+  }
+  ```
+- **Error Response (500 Internal Server Error):**
+  ```json
+  {
+    "message": "Failed to send feedback"
+  }
+  ```
+
 
 1.  **Clone the repository:**
     ```bash

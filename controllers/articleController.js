@@ -30,10 +30,14 @@ const toArticleResponse = (article, options = {}) => {
 exports.createArticle = async (req, res) => {
     try {
         const { title, content, category } = req.body;
+
+        if (!title || !content || !category) {
+            return res.status(400).json({ message: 'Title, content, and category are required' });
+        }
         if (!req.file) {
             return res.status(400).json({ message: 'Cover image is required' });
         }
-        if (!category || !['project', 'article'].includes(category)) {
+        if (!['project', 'article'].includes(category)) {
             return res.status(400).json({ message: 'Valid category (project or article) is required' });
         }
         const cover_image = req.file.path;
@@ -46,6 +50,7 @@ exports.createArticle = async (req, res) => {
         });
 
         await article.save();
+        
         res.status(201).json(toArticleResponse(article));
     } catch (error) {
         res.status(500).json({ message: 'Server error', error: error.message });

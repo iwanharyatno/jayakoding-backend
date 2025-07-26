@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const authRoutes = require('./routes/auth');
 const articleRoutes = require('./routes/article');
+const feedbackRoutes = require('./routes/feedback');
 const authMiddleware = require('./middlewares/authMiddleware');
 const path = require('path');
 
@@ -30,6 +31,7 @@ mongoose.connect(process.env.MONGO_URI, {
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/articles', articleRoutes);
+app.use('/api/feedback', feedbackRoutes);
 
 // Protected route example
 app.get('/api/protected', authMiddleware, (req, res) => {

@@ -5,6 +5,10 @@ exports.login = async (req, res) => {
     try {
         const { username, password } = req.body;
 
+        if (!username || !password) {
+            return res.status(400).json({ message: 'Username and password are required' });
+        }
+
         const user = await User.findOne({ username });
         if (!user) {
             return res.status(400).json({ message: 'Invalid credentials' });
@@ -21,15 +25,13 @@ exports.login = async (req, res) => {
             }
         };
 
-        user.password = '<secret>';
-
         jwt.sign(
             payload,
             process.env.JWT_SECRET,
             { expiresIn: '1h' },
             (err, token) => {
                 if (err) throw err;
-                res.json({ user, token });
+                res.json({ token });
             }
         );
 
