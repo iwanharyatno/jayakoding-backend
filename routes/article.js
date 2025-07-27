@@ -36,7 +36,7 @@ router.get('/:category', getArticlesByCategory);
 // @route   GET api/articles/:id
 // @desc    Get a single article by ID
 // @access  Public
-router.get('/:id', getArticleById);
+router.get('/detail/:id', getArticleById);
 
 // @route   PUT api/articles/:id
 // @desc    Update an article
