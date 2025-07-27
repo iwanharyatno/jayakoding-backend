@@ -6,6 +6,7 @@ const articleRoutes = require('./routes/article');
 const feedbackRoutes = require('./routes/feedback');
 const authMiddleware = require('./middlewares/authMiddleware');
 const path = require('path');
+const cors = require('cors');
 
 const app = express();
 
@@ -14,19 +15,15 @@ app.use(express.json());
 
 // Serve static files
 app.use('/storage', express.static(path.join(__dirname, 'storage')));
-
+app.use(cors());
 
 // Connect to MongoDB
-mongoose.connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-}).then(() => {
+mongoose.connect(process.env.MONGO_URI).then(() => {
     console.log('MongoDB Connected');
 }).catch(err => {
     console.error('MongoDB connection error:', err.message);
     process.exit(1);
 });
-
 
 // Routes
 app.use('/api/auth', authRoutes);
